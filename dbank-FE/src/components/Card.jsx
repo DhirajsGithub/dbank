@@ -1,14 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
-import { depositBalance, withdrawBalance } from "../utils/apis";
+import { depositBalance, getBalance, withdrawBalance } from "../utils/apis";
 import LoadingSpinner from "./LoadingSpinner";
 
-const Card = ({ balance, getBalanceFunc, user }) => {
+const Card = ({ user }) => {
   const [deposit, setDeposit] = useState("");
   const [withdraw, setWithdraw] = useState("");
   const [loading, setLoading] = useState(false); //
 
-  const [error, setError] = useState(null); // [1
+  const [error, setError] = useState(null); //
+
+  const [balance, setBalance] = useState(0);
+  const getBalanceFunc = async () => {
+    try {
+      setLoading(true);
+      const res = await getBalance(user.email);
+      setLoading(false);
+      if (res.balance) {
+        setBalance(res.balance);
+      }
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    getBalanceFunc();
+  }, []);
   const handleDepositClick = async () => {
     try {
       setLoading(true);
