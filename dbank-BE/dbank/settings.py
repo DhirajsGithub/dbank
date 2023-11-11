@@ -104,7 +104,7 @@ DATABASES = {
 }
 
 
-DATABASES["default"] = dj_database_url.parse("postgres://django_app_zg19_user:78UppXUpjw1zx446u2HUFNhvAQKOPEQG@dpg-cl72uvoicrhc73d0ge8g-a.singapore-postgres.render.com/django_app_zg19")
+DATABASES["default"] = dj_database_url.parse("postgres://django_app_zg19_user:78UppXUpjw1zx446u2HUFNhvAQKOPEQG@dpg-cl72uvoicrhc73d0ge8g-a/django_app_zg19")
 
 
 # Password validation
