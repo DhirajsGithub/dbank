@@ -63,6 +63,9 @@ const Card = ({ user }) => {
   return (
     <div className={style.card}>
       {loading && <LoadingSpinner />}
+      <p>
+        Welcome <b>{user.full_name}</b> !
+      </p>
       <div style={{ textAlign: "center" }}>
         <h1>{balance}</h1>
         <p>Total Balance</p>

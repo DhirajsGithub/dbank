@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./SigninSignup.module.css";
 import { signinApi, signupApi } from "../utils/apis";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const SigninSignup = ({ handleUser }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -12,6 +13,7 @@ const SigninSignup = ({ handleUser }) => {
   const [age, setAge] = useState("");
   const [signUpError, setSignUpError] = useState(null);
   const [loginError, setLoginError] = useState(null);
+  const [loading, setLoading] = useState(false); //
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -19,7 +21,9 @@ const SigninSignup = ({ handleUser }) => {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const res = await signinApi(loginEmail, loginPassword);
+    setLoading(false);
     if (res.status === "success") {
       handleUser(res.user);
       localStorage.setItem("user", JSON.stringify(res.user));
@@ -30,8 +34,9 @@ const SigninSignup = ({ handleUser }) => {
 
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const res = await signupApi(fullName, age, signupEmail, signupPassword);
-
+    setLoading(false);
     if (res.status === "success") {
       setSignUpError(null);
       setIsLogin(!isLogin);
@@ -42,6 +47,7 @@ const SigninSignup = ({ handleUser }) => {
 
   return (
     <div className={styles.container}>
+      {loading && <LoadingSpinner />}
       <div style={{ textAlign: "center" }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

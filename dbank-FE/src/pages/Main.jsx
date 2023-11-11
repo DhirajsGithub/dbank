@@ -9,6 +9,8 @@ const Main = ({ user, handleLogoutClick }) => {
       <Header handleLogoutClick={handleLogoutClick} />
       <br />
       <br />
+
+      <br />
       <Card user={user} />
     </div>
   );
